@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!--<settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>-->
+
+    <typeAliases>
+        <!-- 类别名 支持 Account/account -->
+        <package name="cn.bitqian.entity"/>
+    </typeAliases>
+
+    <!--环境 mapper 放入spring管理-->
+    <!--<mappers>
+        <package name="cn.bitqian.mapper"/>
+    </mappers>-->
+</configuration>
