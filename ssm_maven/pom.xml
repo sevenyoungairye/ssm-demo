@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>top.bitqian</groupId>
+  <artifactId>ssm01</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>ssm01</name>
+  
+  <!-- 模块管理 -->
+  <modules>
+    <module>ssm-entity</module>
+    <module>ssm-service</module>
+    <module>ssm-web</module>
+  </modules>
+  
+  <!-- 版本抽取 -->
+  <properties>
+  	<javax.servlet.jsp-version>2.2.1-b03</javax.servlet.jsp-version>
+  	<javax.servlet-api-version>4.0.1</javax.servlet-api-version>
+  	<jstl-version>1.2</jstl-version>
+  	
+  	<!-- mvc -->
+  	<spring-webmvc-version>5.2.3.RELEASE</spring-webmvc-version>
+  	
+  	<!-- jdbc -->
+  	<spring-jdbc-version>5.2.3.RELEASE</spring-jdbc-version>
+  	
+    <aspectjweaver-version>1.8.4</aspectjweaver-version>
+  	
+  	<!-- mybatis -->
+  	<mybatis-version>3.5.5</mybatis-version>
+  	
+  	<mybatis-spring-version>2.0.5</mybatis-spring-version>
+  	
+  	<mysql-connector-java-version>8.0.20</mysql-connector-java-version>
+  	
+  	<log4j-version-version>1.2.12</log4j-version-version>
+  	
+  	<c3p0-version>0.9.5.2</c3p0-version>
+  	
+  	<junit-version>4.11</junit-version>
+  	
+  	<spring-test-version>5.2.3.RELEASE</spring-test-version>
+  	
+  	<jackson-databind-version>2.9.6</jackson-databind-version>
+  	
+  	<!-- 子项目  -->
+  	<ssm-entity-version>0.0.0.1-SNAPSHOT</ssm-entity-version>
+  	
+  	<ssm-service-version>0.0.0.1-SNAPSHOT</ssm-service-version>
+ 
+  </properties>
+  
+  <dependencyManagement>
+  	<dependencies>
+  	
+ 		<!-- 父项目导入子项目 作为桥梁 提供给其它子项目引用 -->
+		<dependency>
+		  <groupId>cn.bitqian</groupId>
+		  <artifactId>ssm-entity</artifactId>
+		  <version>${ssm-entity-version}</version>			
+		</dependency>
+		
+		<dependency>
+		  <groupId>cn.bitqian</groupId>
+		  <artifactId>ssm-service</artifactId>
+		  <version>${ssm-service-version}</version>		
+		</dependency> 	
+  	
+	  	<!-- jsp & servlet -->
+	    <dependency>
+	      <groupId>javax.servlet.jsp</groupId>
+	      <artifactId>jsp-api</artifactId>
+	      <version>${javax.servlet.jsp-version}</version>
+	    </dependency>
+	
+	    <dependency>
+	      <groupId>javax.servlet</groupId>
+	      <artifactId>javax.servlet-api</artifactId>
+	      <version>${javax.servlet-api-version}</version>
+	      <scope>provided</scope>
+	    </dependency>
+	
+	    <!-- el表达式 -->
+	    <dependency>
+	      <groupId>jstl</groupId>
+	      <artifactId>jstl</artifactId>
+	      <version>${jstl-version}</version>
+	      <scope>provided</scope>
+	    </dependency>
+	    
+	    <!-- webmvc -->
+	    <dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-webmvc</artifactId>
+	      <version>${spring-webmvc-version}</version>
+	    </dependency>	  
+	    
+	    <!-- mybatis 相关 -->  
+
+	    <dependency>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-jdbc</artifactId>
+	      <version>${spring-jdbc-version}</version>
+	    </dependency>	
+	    
+	    <!-- 事务相关 -->
+	    
+		<dependency>
+	      <groupId>org.aspectj</groupId>
+	      <artifactId>aspectjweaver</artifactId>
+	      <version>${aspectjweaver-version}</version>
+	    </dependency>
+	    
+	    <!-- spring 整合mybatis -->
+	    <dependency>
+	      <groupId>org.mybatis</groupId>
+	      <artifactId>mybatis-spring</artifactId>
+	      <version>${mybatis-spring-version}</version>
+	    </dependency>
+	
+	    <!-- mybatis -->
+	    <dependency>
+	      <groupId>org.mybatis</groupId>
+	      <artifactId>mybatis</artifactId>
+	      <version>${mybatis-version}</version>
+	    </dependency>
+	
+	    <dependency>
+	      <groupId>mysql</groupId>
+	      <artifactId>mysql-connector-java</artifactId>
+	      <version>${mysql-connector-java-version}</version>
+	    </dependency>
+	     
+	    <!-- log4j -->
+	    <dependency>
+	      <groupId>log4j</groupId>
+	      <artifactId>log4j</artifactId>
+	      <version>1.2.12</version>
+	    </dependency>	
+	    
+	    <!-- c3p0 -->   
+		<dependency>
+		    <groupId>com.mchange</groupId>
+		    <artifactId>c3p0</artifactId>
+		    <version>${c3p0-version}</version>
+		</dependency>
+	       
+	    
+	    <!-- junit --> 
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>${junit-version}</version>
+	      <scope>test</scope>
+	    </dependency>	     
+	    
+	    <!-- spring-test -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${spring-test-version}</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-databind-version}</version>
+		</dependency>		
+		
+	   
+  	</dependencies>
+  </dependencyManagement>
+  
+</project>

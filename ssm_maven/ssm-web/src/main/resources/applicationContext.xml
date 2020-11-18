@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- mvc相关配置 -->
+	
+	<!-- 开启mvc注解 -->
+	<mvc:annotation-driven></mvc:annotation-driven>
+	
+	<!-- 静态资源放行 -->
+	<mvc:resources location="/*" mapping="/**"></mvc:resources>
+	
+	<!--  扫描包-->
+	<context:component-scan base-package="top.bitqian.ssm"></context:component-scan>
+
+	<!-- db.properties加载  -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	
+	<!-- 连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${driverClass}" />
+		<property name="jdbcUrl" value="${url}"></property>
+		<property name="user" value="${jdbc.user}"></property>
+		<property name="password" value="${pwd}"></property>
+	</bean> 
+
+	<!-- 加载mapper配置文件 mybatis配置 -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:top/bitqian/ssm/entity/*.xml"></property>
+		<property name="typeAliasesPackage" value="top.bitqian.ssm.entity"></property>
+	</bean>
+	
+	<!--扫描dao接口  -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="top.bitqian.ssm.mapper"></property>
+	</bean>
+	
+	<!-- 事务管理  -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 注解式事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- 声明式事务  -->
+	<tx:advice id="advice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="add*" propagation="REQUIRED"/>
+			<tx:method name="insert*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<tx:method name="remove*" propagation="REQUIRED"/>
+			
+			<tx:method name="*" propagation="SUPPORTS"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- aop 切点 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* top.bitqian.ssm.service.impl.*.*(..))" id="pointcut"/>
+		<aop:advisor advice-ref="advice" pointcut-ref="pointcut"/>
+	</aop:config>
+	
+</beans>
