@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="top.bitqian.mapper.RoomInfoMapper">
+
+    <resultMap id="baseMap" type="top.bitqian.entity.RoomInfo" autoMapping="true">
+        <id property="roomId" column="room_id" jdbcType="INTEGER" />
+        <result property="roomNo" column="room_no" jdbcType="VARCHAR" />
+        <result property="createDate" column="create_date" jdbcType="DATE" />
+        <result property="roomType" column="room_type" jdbcType="INTEGER" />
+        <result property="roomStatus" column="room_status" jdbcType="INTEGER" />
+        <result property="price" column="price" jdbcType="DOUBLE" />
+    </resultMap>
+
+    <!-- 查询所有 -->
+    <select id="getRoomInfoList" resultMap="baseMap">
+        select * from roominfo
+    </select>
+
+    <!-- add -->
+    <insert id="addRoomInfo" parameterType="top.bitqian.entity.RoomInfo">
+        insert into roominfo values (null, #{roomNo}, now(), #{roomType}, #{roomStatus}, #{price})
+    </insert>
+
+    <!-- update -->
+    <update id="updateRoomInfo" parameterType="top.bitqian.entity.RoomInfo">
+        update roominfo set
+            room_no = #{roomNo}, room_type = #{roomType}, room_status= #{roomStatus}, price = #{price}
+            where room_id = #{roomId}
+    </update>
+
+    <!-- get  -->
+    <select id="getRoomInfoById" resultMap="baseMap" parameterType="Integer">
+        select * from roominfo where room_id = #{roomId}
+    </select>
+
+    <!-- del -->
+    <delete id="deleteRoomInfoById" parameterType="Integer">
+        delete from roominfo where room_id = #{roomId}
+    </delete>
+    
+</mapper>
